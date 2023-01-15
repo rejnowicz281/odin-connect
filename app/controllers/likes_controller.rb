@@ -4,11 +4,8 @@ class LikesController < ApplicationController
         @like = @post.likes.build(like_params)
         @like.user = current_user
 
-        if @like.save
-          redirect_to @post
-        else
-          redirect_to @post
-        end
+        @like.save
+        redirect_to @post
     end
 
     def destroy
