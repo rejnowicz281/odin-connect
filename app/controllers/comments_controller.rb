@@ -3,11 +3,8 @@ class CommentsController < ApplicationController
         @post = Post.find(params[:post_id])
         @comment = @post.comments.new(comment_params)
         @comment.author = current_user
-        if @comment.save
-          redirect_to @post
-        else
-          redirect_to @post
-        end
+        @comment.save
+        redirect_to @post
     end
 
     def destroy
@@ -15,6 +12,8 @@ class CommentsController < ApplicationController
       @comment = @post.comments.find(params[:id])
   
       @comment.destroy
+
+      redirect_to @post
     end
 
     private

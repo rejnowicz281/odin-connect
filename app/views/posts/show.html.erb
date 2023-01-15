@@ -30,4 +30,9 @@
 <h2>Comments: </h2>
 <% @post.comments.each do |comment| %>
   <%= render comment %>
+  <% if(current_user == @post.author || current_user == comment.author ) %>
+    <%= form_with(model: [@post, comment], method: :delete, data: { confirm: 'Are you sure?' }) do |form| %>
+      <%= form.submit 'Delete comment' %>
+    <% end %>
+  <% end %>
 <% end %>
