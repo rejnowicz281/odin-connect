@@ -6,6 +6,9 @@ class User < ApplicationRecord
 
   has_many :posts, dependent: :destroy, foreign_key: :author_id
 
+  has_many :likes, dependent: :destroy
+  has_many :comments, dependent: :destroy, foreign_key: :author_id
+
   has_many :invites, 
     class_name: "Invitation", 
     foreign_key: :inviter_id, 
