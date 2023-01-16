@@ -1,4 +1,8 @@
 <div class="border" id="<%= dom_id comment %>">
     <h1> <%= comment.author.email %> </h1>
     <p> <%= comment.body %> </p>
+    <p class="text-muted"> Created at: <%= comment.created_at %> </p>
+    <% if(comment.created_at != comment.updated_at) %>
+        <p class="text-muted"> Edited at: <%= comment.created_at %> </p>
+    <% end %>
 </div>
