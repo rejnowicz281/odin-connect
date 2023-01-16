@@ -1,29 +1,15 @@
 class FriendshipsController < ApplicationController
-    before_action :set_friendship, only: [:show, :destroy]
-  
-    def index
-      @friendships = current_user.friendships
-    end
-  
-    def show
-    end
-  
-    def new
-      @friendship = current_user.friendships.build
-    end
+    before_action :set_friendship, only: [:destroy]
   
     def create
-      @friendship = current_user.friendships.create(friendship_params)
-  
-      if @friendship.save
-        redirect_to root_path
-      else
-        render :new
-      end
+      @friendship = Friendship.create(friendship_params)
+
+      redirect_to root_path
     end
   
     def destroy
       @friendship.destroy
+
       redirect_to root_path
     end
   
