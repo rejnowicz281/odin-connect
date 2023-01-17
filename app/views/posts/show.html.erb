@@ -25,7 +25,7 @@
 
 <br>
 
-<%= render "comments/form", comment: @comment, post:@post %>
+<%= render "comments/form" %>
 
 <h2>Comments: </h2>
 <% @post.comments.order(created_at: :desc).each do |comment| %>
