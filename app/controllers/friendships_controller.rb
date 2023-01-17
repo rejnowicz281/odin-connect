@@ -1,25 +1,16 @@
 class FriendshipsController < ApplicationController
-    before_action :set_friendship, only: [:destroy]
-  
     def create
-      @friendship = Friendship.create(friendship_params)
+      @friendship = current_user.friendships.create(friend_id: params[:friend_id])
+      @invitation = current_user.invites_received.find_by(inviter_id: params[:friend_id])
 
+      @invitation.destroy
       redirect_to root_path
     end
-  
+
     def destroy
+      @friendship = Friendship.find(params[:id])
       @friendship.destroy
 
       redirect_to root_path
     end
-  
-    private
-    def set_friendship
-        @friendship = Friendship.find(params[:id])
-    end
-
-    def friendship_params
-        params.require(:friendship).permit(:user_id, :friend_id)
-    end
 end
-  

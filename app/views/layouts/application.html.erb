@@ -12,6 +12,8 @@
 
   <body>
     <%= link_to "Sign out" , destroy_user_session_path if signed_in? %>
+    <%= render "users/invites_received" %>
+    <%= render "users/friends" %>
     <%= yield %>
   </body>
 </html>

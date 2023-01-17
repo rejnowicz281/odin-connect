@@ -1,0 +1,16 @@
+<div class="invites-received mt-4">
+    <h5 class="text-warning">Invites received: </h5>
+    <% if current_user.invites_received.empty? %>
+        <p class="text-muted">Empty!</p>
+    <% else %>
+        <ul class="list-group">
+            <% current_user.invites_received.each do |invite| %>
+                <li class="list-group-item miniature-event m-1">
+                    <p class="text-muted">Event</p>
+                    <h6 class="text-truncate"> <%= invite.inviter.email %></h6>
+                    <%= button_to "Accept Invite", friendships_path(friend_id: invite.inviter_id), :method => :post, class: "btn btn-dark m-2" %>
+                </li>
+            <% end %>
+        </ul>
+    <% end %>
+</div>

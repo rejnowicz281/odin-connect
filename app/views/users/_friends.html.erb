@@ -1,0 +1,13 @@
+<h5 class="text-warning">Friends: </h5>
+<% if current_user.friends.empty? %>
+    <p class="text-muted">no friends. lol</p>
+<% else %>
+    <ul class="list-group">
+        <% current_user.friends.each do |friend| %>
+            <li class="list-group-item miniature-event m-1">
+                <p class="text-muted">Friend</p>
+                <h6 class="text-truncate"> <%= friend.email %></h6>
+            </li>
+        <% end %>
+    </ul>
+<% end %>
