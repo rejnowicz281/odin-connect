@@ -1,7 +1,10 @@
 class PostsController < ApplicationController
     before_action :set_post, only: [:show, :edit, :update, :destroy]
     def index
-        @posts = Post.all
+        friends_ids = current_user.friends.pluck(:id)
+        friends_posts = []
+        Post.all.each { |post| friends_posts << post if friends_ids.any? { |id| id == post.author_id } }
+        @posts = current_user.posts + friends_posts
     end
 
     def show
