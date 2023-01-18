@@ -2,6 +2,9 @@ class Invitation < ApplicationRecord
   belongs_to :invitee, class_name: "User"
   belongs_to :inviter, class_name: "User"
 
+  validates :inviter, presence: true
+  validates :invitee, presence: true, uniqueness: { scope: :inviter }
+
   validate :not_friends
   validate :not_pending
   validate :not_self

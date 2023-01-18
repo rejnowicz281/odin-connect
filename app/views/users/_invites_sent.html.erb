@@ -1,0 +1,17 @@
+<div class="invites-received mt-4">
+    <h5 class="text-warning">Invites sent: </h5>
+    <% if current_user.invites.empty? || current_user.invites.first.id == nil %>
+        <p class="text-muted">None!</p>
+    <% else %>
+        <ul class="list-group">
+            <% current_user.invites.each do |invite| %>
+                <% next if invite.id == nil %>
+                <li class="list-group-item miniature-event m-1">
+                    <p class="text-muted">Sent</p>
+                    <h6 class="text-truncate"> <%= invite.invitee.email %></h6>
+                    <%= button_to "Cancel Invite", invitation_path(invite.id), :method => :delete, class: "btn btn-dark m-2" %>
+                </li>
+            <% end %>
+        </ul>
+    <% end %>
+</div>

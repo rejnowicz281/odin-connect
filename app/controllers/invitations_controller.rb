@@ -1,6 +1,11 @@
 class InvitationsController < ApplicationController
     before_action :set_invitation, only: [:destroy]
 
+    def new
+        @not_friends = User.where.not(id: current_user.id) - current_user.friends - current_user.invitees
+        @invitation = current_user.invites.build
+    end
+
     def create
         @invitation = current_user.invites.create(invitation_params)
 

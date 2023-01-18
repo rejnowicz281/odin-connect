@@ -1,0 +1,10 @@
+<div class="border">
+    <% @not_friends.each do |user| %>
+        <h3> <%= user.email %> </h3>
+        <%= form_with(model: @invitation) do |form| %>
+            <%= form.hidden_field :inviter_id, value: current_user.id %>
+            <%= form.hidden_field :invitee_id, value: user.id %>
+            <%= form.submit %>
+        <% end %>
+    <% end %>
+</div>
