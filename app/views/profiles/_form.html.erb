@@ -1,0 +1,30 @@
+<h1>Create a profile</h1>
+
+<%= form_with(model: profile) do |form| %>
+    <div>
+        <%= form.label :photo %>
+        <%= form.file_field :photo %>
+    </div>
+
+    <div>
+        <%= form.label :phone_number %>
+        <%= form.text_field :phone_number %>
+    </div>
+    
+    <div>
+        <%= form.label :gender %>
+        <%= form.text_field :gender %>
+    </div>
+
+    <div>
+        <%= form.label :birth_date %>
+        <%= form.date_field :birth_date %>
+    </div>
+
+    <div>
+        <%= form.label :location %>
+        <%= form.text_field :location %>
+    </div>
+
+    <%= form.submit %>
+<% end %>

@@ -1,6 +1,6 @@
 <div id="<%= dom_id post %>">
     <p> <%= post.body %> </p>
-    <p class="text-muted"> <%= post.author.email %> </p>
+    <%= link_to post.author.email, post.author, class: "text-muted mb-2" %>
     <p class="text-muted"> Created at: <%= post.created_at %> </p>
     <% if(post.created_at != post.updated_at) %>
         <p class="text-muted"> Edited at: <%= post.updated_at %> </p>

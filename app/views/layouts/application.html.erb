@@ -14,8 +14,11 @@
     <% if signed_in? %>
       <h1> Welcome, <%= current_user.email %> </h1>
       <%= link_to "Sign out" , destroy_user_session_path %>
-      |<%= link_to "Homepage", root_path %>
-      |<%= link_to "Invite someone", new_invitation_path %>
+      <%= link_to "|Homepage", root_path %>
+      <%= link_to "|Invite someone", new_invitation_path %>
+      <%= link_to "|Create a profile", new_profile_path unless current_user.profile %>
+      <%= link_to "|Your Show Page", current_user %>
+
       <%= render "users/invites_sent" %>
       <%= render "users/invites_received" %>
       <%= render "users/friends" %>

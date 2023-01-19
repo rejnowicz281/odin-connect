@@ -1,0 +1,9 @@
+<% if @user.profile %>
+    <h1>User Profile: </h1>
+    <%= render @user.profile %>
+<% end %>
+
+<h1>User Posts: </h1>
+<% @user.posts.each do |post| %>
+    <%= render post %>
+<% end %>

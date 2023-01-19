@@ -8,7 +8,7 @@
                 <% next if invite.id == nil %>
                 <li class="list-group-item miniature-event m-1">
                     <p class="text-muted">Sent</p>
-                    <h6 class="text-truncate"> <%= invite.invitee.email %></h6>
+                    <%= link_to invite.invitee.email, invite.invitee  %>
                     <%= button_to "Cancel Invite", invitation_path(invite.id), :method => :delete, class: "btn btn-dark m-2" %>
                 </li>
             <% end %>

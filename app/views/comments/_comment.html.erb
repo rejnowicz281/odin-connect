@@ -1,5 +1,5 @@
 <div class="border" id="<%= dom_id comment %>">
-    <h1> <%= comment.author.email %> </h1>
+    <%= link_to comment.author.email, comment.author  %>
     <p> <%= comment.body %> </p>
     <p class="text-muted"> Created at: <%= comment.created_at %> </p>
     <% if(comment.created_at != comment.updated_at) %>
