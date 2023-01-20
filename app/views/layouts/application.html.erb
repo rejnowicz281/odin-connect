@@ -26,9 +26,11 @@
               <li class="nav-item">
                 <%= link_to "Home", root_path, class: "nav-link"%>
               </li>
+
               <li class="nav-item">
                 <%= link_to "Invite someone", new_invitation_path, class: "nav-link" %>
               </li>
+
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Invites sent
@@ -39,7 +41,7 @@
                   <% else %>
                     <% current_user.invites.each do |invite| %>
                       <% next if invite.id == nil %>
-                      <li class="dropdown-item d-flex align-items-center"> 
+                      <li class="dropdown-item d-flex align-items-center justify-content-between"> 
                         <%= link_to invite.invitee.email, invite.invitee %>
                         <%= button_to "Cancel", invitation_path(invite.id), method: :delete, class: "m-3 btn btn-danger" %>
                       </li>
@@ -47,6 +49,7 @@
                   <% end %>
                 </ul>
               </li>
+
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Invites received
@@ -56,7 +59,7 @@
                     <li class="dropdown-item">No invites received</li>
                   <% else %>
                     <% current_user.invites_received.each do |invite| %>
-                      <li class="dropdown-item d-flex align-items-center""> 
+                      <li class="dropdown-item d-flex align-items-center justify-content-between"> 
                         <%= link_to invite.inviter.email, invite.inviter %>
                         <%= button_to "Accept", friendships_path(friend_id: invite.inviter_id), method: :post, class: "m-3 btn btn-success" %>
                       </li>
@@ -64,6 +67,7 @@
                   <% end %>
                 </ul>
               </li>
+
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Friends list
@@ -73,7 +77,7 @@
                     <li class="dropdown-item">No friends found</li>
                   <% else %>
                     <% current_user.friendships.each do |friendship| %>
-                      <li class="dropdown-item d-flex align-items-center""> 
+                      <li class="dropdown-item d-flex align-items-center justify-content-between"> 
                         <%= link_to friendship.friend.email, friendship.friend %>
                         <%= button_to "Unfriend", friendship_path(friendship.id), method: :delete, class: "m-3 btn btn-danger" %>
                       </li>
@@ -81,12 +85,14 @@
                   <% end %>
                 </ul>
               </li>
+
               <% unless current_user.profile %>
                 <li class="nav-item">
                   <%= link_to "Create a profile", new_profile_path, class: "nav-link" %>
                 </li>
               <% end %>
             </ul>
+
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
                 <%= link_to current_user.email, current_user, class: "nav-link" %>
