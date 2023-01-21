@@ -1,8 +1,5 @@
 <div id="posts">
   <% posts.sort_by{ |p| [p.created_at] }.reverse.each do |post| %>
     <%= render post %>
-    <p>
-      <%= link_to "Show this post", post %>
-    </p>
   <% end %>
 </div>
