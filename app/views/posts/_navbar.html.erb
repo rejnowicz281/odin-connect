@@ -1,0 +1,24 @@
+<div class="d-flex justify-content-between align-items-center border-bottom">
+    <div>
+        <div> <%= link_to post.author.email, post.author, class: "fw-bold" %> </div>
+        <div class="text-muted"> 
+            <%= post.created_at %> 
+            <% if post.created_at != post.updated_at %>
+                | (<%= post.updated_at %>)
+            <% end %>
+        </div>
+    </div>
+    <% if current_user == post.author %>
+        <div>
+            <div class="dropdown">
+                <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="bi-three-dots fs-3"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuLink">
+                    <li> <%= link_to "Edit", edit_post_path(post), class: "dropdown-item" %> </li>
+                    <li> <%= button_to "Delete", post_path(post), method: :delete, class: "dropdown-item" %> </li>
+                </ul>
+            </div>
+        </div>
+    <% end %>
+</div>

@@ -1,0 +1,27 @@
+<div class="pb-1 pt-1">
+    <% if post.likes.count > 0 %>
+        <button type="button" class="btn btn-link text-dark text-decoration-none p-0" data-bs-toggle="modal" data-bs-target="#likesModal<%= post.id %>">
+            <%= image_tag("like.png", size: "25x25") %>
+            <%= post.likes.count %>
+        </button>
+        <div class="modal fade" id="likesModal<%= post.id %>" tabindex="-1" aria-labelledby="likesModal<%= post.id %>Label" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <ul class="list-group">
+                            <% post.likes.order(created_at: :desc).each do |like| %>
+                                <%= link_to(like.user, class: "list-group-item d-flex align-items-center") do %>
+                                    <%= image_tag("like-up.png", size: "25x25", class: "m-2")%>
+                                    <%= like.user.email %>
+                                <% end %>
+                            <% end %>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% end %>
+</div>
