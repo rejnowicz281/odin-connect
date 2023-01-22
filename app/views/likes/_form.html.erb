@@ -1,3 +1,6 @@
-<%= form_with(model: [post, post.likes.build], method: :post) do |form| %>
-  <%= form.submit "Like" %>
+<%= form_with(model: [post, post.likes.build], method: :post, class: "w-50") do |form| %>
+  <button type="submit" class="btn btn-light text-decoration-none text-dark fw-bold w-100">
+    <%= image_tag("like-up.png", size: "20x20") %>
+    Like
+  </button>
 <% end %>

@@ -1,14 +1,28 @@
-<div class="border" id="<%= dom_id comment %>">
-    <%= link_to comment.author.email, comment.author  %>
-    <p> <%= comment.body %> </p>
-    <p class="text-muted"> Created at: <%= comment.created_at %> </p>
-    <% if(comment.created_at != comment.updated_at) %>
-        <p class="text-muted"> Edited at: <%= comment.created_at %> </p>
-    <% end %>
-
-    <% if(current_user == comment.post.author || current_user == comment.author ) %>
-        <%= form_with(model: [comment.post, comment], method: :delete, data: { confirm: 'Are you sure?' }) do |form| %>
-            <%= form.submit 'Delete comment' %>
+<div class="comment bg-light rounded mb-3 mt-3 p-2" id="<%= dom_id comment %>">
+    <div class="d-flex justify-content-between align-items-center border-bottom">
+        <div>
+            <div> <%= link_to comment.author.email, comment.author, class: "fw-bold" %> </div>
+            <div class="text-muted"> 
+                <%= comment.created_at %> 
+                <% if comment.created_at != comment.updated_at %>
+                    | (<%= comment.updated_at %>)
+                <% end %>
+            </div>
+        </div>
+        <% if current_user == comment.author || comment.post.author == current_user %>
+            <div>
+                <div class="dropdown">
+                    <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="bi-three-dots fs-5"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuLink">
+                        <li> <%= button_to "Delete", post_comment_path(comment.post, comment), method: :delete, class: "dropdown-item" %> </li>
+                    </ul>
+                </div>
+            </div>
         <% end %>
-    <% end %>
+    </div>
+    <div class="pb-2 pt-2"> 
+        <%= comment.body %> 
+    </div>
 </div>

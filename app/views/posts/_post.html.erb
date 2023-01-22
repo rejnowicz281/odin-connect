@@ -1,32 +1,81 @@
-<div id="<%= dom_id post %>">
-    <p> <%= post.body %> </p>
-    <%= link_to post.author.email, post.author, class: "text-muted mb-2" %>
-    <p class="text-muted"> Created at: <%= post.created_at %> </p>
-    <% if(post.created_at != post.updated_at) %>
-        <p class="text-muted"> Edited at: <%= post.updated_at %> </p>
-    <% end %>
-
-    <% if post.likes.pluck(:user_id).include?(current_user.id) %>
-        <%= form_with(model: [post, current_user.likes.find_by(post_id: post.id)], method: :delete, data: { confirm: 'Are you sure?' }) do |form| %>
-            <%= form.submit 'Unlike' %>
+<div class="p-3 mt-4 mb-4 border rounded shadow" id="<%= dom_id post %>">
+    <div class="d-flex justify-content-between align-items-center border-bottom">
+        <div>
+            <div> <%= link_to post.author.email, post.author, class: "fw-bold" %> </div>
+            <div class="text-muted"> 
+                <%= post.created_at %> 
+                <% if post.created_at != post.updated_at %>
+                    | (<%= post.updated_at %>)
+                <% end %>
+            </div>
+        </div>
+        <% if current_user == post.author %>
+            <div>
+                <div class="dropdown">
+                    <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="bi-three-dots fs-3"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuLink">
+                        <li> <%= link_to "Edit", edit_post_path(post), class: "dropdown-item" %> </li>
+                        <li> <%= button_to "Delete", post_path(post), method: :delete, class: "dropdown-item" %> </li>
+                    </ul>
+                </div>
+            </div>
         <% end %>
-    <% else %>
-        <%= render "likes/form", post: post %>
-    <% end %>
+    </div>
+    <div class="pb-2 pt-2"> 
+        <%= post.body %> 
+    </div>
 
-    <h5>Likes: <%= post.likes.count %> </h5>
-    <div id="likes">
-        <% post.likes.order(created_at: :desc).each do |like| %>
-            <%= render like %>
+    <div class="pb-1 pt-1">
+        <% if post.likes.count > 0 %>
+            <button type="button" class="btn btn-link text-dark text-decoration-none p-0" data-bs-toggle="modal" data-bs-target="#likesModal<%= post.id %>">
+                <%= image_tag("like.png", size: "25x25") %>
+                <%= post.likes.count %>
+            </button>
+            <div class="modal fade" id="likesModal<%= post.id %>" tabindex="-1" aria-labelledby="likesModal<%= post.id %>Label" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <ul class="list-group">
+                                <% post.likes.order(created_at: :desc).each do |like| %>
+                                    <%= link_to(like.user, class: "list-group-item d-flex align-items-center") do %>
+                                        <%= image_tag("like-up.png", size: "25x25", class: "m-2")%>
+                                        <%= like.user.email %>
+                                    <% end %>
+                                <% end %>
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         <% end %>
     </div>
 
-    <%= render "comments/form", post: post %>
-
-    <h2>Comments: </h2>
-    <div id="comments">
-        <% post.comments.order(created_at: :desc).each do |comment| %>
-            <%= render comment %>
+    <div class="border rounded w-100 d-flex bg-light">
+        <% if post.likes.pluck(:user_id).include?(current_user.id) %>
+            <%= render "likes/unlike_form", post: post %>
+        <% else %>
+            <%= render "likes/form", post: post %>
         <% end %>
+        <button class="btn btn-light text-decoration-none text-dark fw-bold w-50" type="button" data-bs-toggle="collapse" data-bs-target="#collapseComments<%= post.id %>" aria-expanded="false" aria-controls="collapseComments<%= post.id %>">
+            <%= image_tag("comment.png", size: "20x20") %>
+            Comments
+            <% unless post.comments.empty? %>
+                (<%= post.comments.count %>)
+            <% end %>
+        </button>
+    </div>
+
+    <div class="collapse" id="collapseComments<%= post.id %>">
+        <%= render "comments/form", post: post %>
+        <div id="comments">
+            <% post.comments.order(created_at: :desc).each do |comment| %>
+                <%= render comment %>
+            <% end %>
+        </div>
     </div>
 </div>
