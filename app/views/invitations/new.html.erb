@@ -1,14 +1,16 @@
-<div class="border">
+<ul class="list-group">
     <% if @not_friends.empty? %>
-        <p class="text-muted">You've got no one to invite. Congratulations.</p>
+        <li class="list-group-item text-muted">No users left to invite!</li>
     <% else %>
         <% @not_friends.each do |user| %>
-            <h3><%= link_to user.email, user  %></h3>
-            <%= form_with(model: @invitation) do |form| %>
-                <%= form.hidden_field :inviter_id, value: current_user.id %>
-                <%= form.hidden_field :invitee_id, value: user.id %>
-                <%= form.submit %>
-            <% end %>
+            <li class="list-group-item d-flex align-items-center justify-content-between">
+                <%= link_to user.email, user %>
+                <%= form_with(model: @invitation) do |form| %>
+                    <%= form.hidden_field :inviter_id, value: current_user.id %>
+                    <%= form.hidden_field :invitee_id, value: user.id %>
+                    <button type="submit" class="btn btn-dark m-3">Invite to friends</button>
+                <% end %>
+            </li>
         <% end %>
     <% end %>
-</div>
+</ul>
