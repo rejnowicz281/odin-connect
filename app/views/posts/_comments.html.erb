@@ -1,0 +1,8 @@
+<div class="collapseComments collapse" id="collapseComments<%= post.id %>">
+    <%= render "comments/form", post: post %>
+    <div id="<%= dom_id post %>_comments">
+        <% post.comments.order(created_at: :desc).each do |comment| %>
+            <%= render comment %>
+        <% end %>
+    </div>
+</div>

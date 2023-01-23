@@ -1,4 +1,4 @@
-<div class="border rounded w-100 d-flex bg-light">
+<div class="border rounded w-100 d-flex bg-light mb-3">
     <% if post.likes.pluck(:user_id).include?(current_user.id) %>
         <%= render "likes/unlike_form", post: post %>
     <% else %>
@@ -7,17 +7,5 @@
     <button class="btn btn-light text-decoration-none text-dark fw-bold w-50" type="button" data-bs-toggle="collapse" data-bs-target="#collapseComments<%= post.id %>" aria-expanded="false" aria-controls="collapseComments<%= post.id %>">
         <%= image_tag("comment.png", size: "20x20") %>
         Comments
-        <% unless post.comments.empty? %>
-            (<%= post.comments.count %>)
-        <% end %>
     </button>
-</div>
-
-<div class="collapse" id="collapseComments<%= post.id %>">
-    <%= render "comments/form", post: post %>
-    <div id="comments">
-        <% post.comments.order(created_at: :desc).each do |comment| %>
-            <%= render comment %>
-        <% end %>
-    </div>
 </div>
