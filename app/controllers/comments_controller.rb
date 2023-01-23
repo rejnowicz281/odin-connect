@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
         @comment.author = current_user
 
         @comment.save
-        redirect_to @post
+        respond_to { |format| format.turbo_stream }
     end
 
     def destroy
@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
       @comment = @post.comments.find(params[:id])
       @comment.destroy
 
-      redirect_to @post
+      respond_to { |format| format.turbo_stream }
     end
 
     private

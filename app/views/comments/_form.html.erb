@@ -1,4 +1,5 @@
-<%= form_with(model: [post, post.comments.build], method: :post, class: "d-flex m-2") do |form| %>
+<%= form_with(model: [post, post.comments.build], method: :post, class: "d-flex align-items-center m-2") do |form| %>
   <%= form.text_area :body, placeholder: "Write your comment here", class: "w-100 border rounded" %>
   <button type="submit" class="btn btn-secondary bi-arrow-down m-1" ></button>
+  <span id="<%= dom_id post %>_comments_count" class="post-comments-count text-muted"><%= post.comments.count %></span>
 <% end %>
