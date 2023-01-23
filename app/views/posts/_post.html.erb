@@ -5,7 +5,8 @@
         <%= post.body %> 
     </div>
 
-    <%= render "likes", post: post %>
-
-    <%= render "menu", post: post %>
+    <%= turbo_frame_tag "likes" do %>
+        <%= render "likes", post: post %>
+        <%= render "menu", post: post %>
+    <% end %>
 </div>
