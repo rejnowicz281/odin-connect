@@ -17,11 +17,13 @@ class PostsController < ApplicationController
     def create
         @post = current_user.posts.build(post_params)
 
-        if @post.save
-            redirect_to @post
-        else
-            render :new, status: :unprocessable_entity
-        end
+        respond_to do |format|
+            if @post.save
+                format.turbo_stream
+            else
+                format.html { render :new, status: :unprocessable_entity }
+            end
+        end 
     end
 
     def edit
@@ -38,7 +40,7 @@ class PostsController < ApplicationController
     def destroy
         @post.destroy
 
-        redirect_to root_path, status: :see_other
+        respond_to { |format| format.turbo_stream }
     end
 
     private
