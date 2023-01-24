@@ -1,14 +1,14 @@
 <div class="p-3 mt-4 mb-4 border rounded shadow" id="<%= dom_id post %>">
-    <%= render "navbar", post: post %>
+    <%= render "/posts/navbar", post: post %>
 
     <div class="pb-2 pt-2"> 
         <%= post.body %> 
     </div>
 
     <%= turbo_frame_tag "likes" do %>
-        <%= render "likes", post: post %>
-        <%= render "menu", post: post %>
+        <%= render "/posts/likes", post: post %>
+        <%= render "/posts/menu", post: post %>
     <% end %>
 
-    <%= render "comments", post: post %>
+    <%= render "/posts/comments", post: post %>
 </div>
