@@ -9,13 +9,13 @@ class InvitationsController < ApplicationController
     def create
         @invitation = current_user.invites.create(invitation_params)
 
-        redirect_to root_path
+        redirect_to new_invitation_path
     end
 
     def destroy
         @invitation.destroy
 
-        redirect_to root_path
+        redirect_back fallback_location: root_path
     end
 
     private
