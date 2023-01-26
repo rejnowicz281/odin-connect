@@ -5,11 +5,7 @@
         <% @not_friends.each do |user| %>
             <li class="list-group-item d-flex align-items-center justify-content-between">
                 <%= link_to user.email, user %>
-                <%= form_with(model: @invitation) do |form| %>
-                    <%= form.hidden_field :inviter_id, value: current_user.id %>
-                    <%= form.hidden_field :invitee_id, value: user.id %>
-                    <button type="submit" class="btn btn-dark m-3">Invite to friends</button>
-                <% end %>
+                <%= button_to "Invite to friends", invitations_path(inviter_id: current_user.id, invitee_id: user.id), class: "btn btn-dark m-3" %>
             </li>
         <% end %>
     <% end %>
