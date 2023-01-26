@@ -1,7 +1,7 @@
 <div class="m-3">
     <div class="card shadow">
         <div class="card-img d-flex justify-content-center">
-            <%= image_tag((@user.profile ? @user.profile.photo : "default-picture.jpg"), class:"rounded-circle mt-3", size: "400x400") %>
+            <%= image_tag(@user.profile_picture_path, class:"rounded-circle mt-3", size: "400x400") %>
         </div>
         <div class="card-body text-center">
             <% if current_user.friends.include?(@user) %>
