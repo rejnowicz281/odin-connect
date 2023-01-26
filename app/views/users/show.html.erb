@@ -1,7 +1,47 @@
-<% if @user.profile %>
-    <h1>User Profile: </h1>
-    <%= render @user.profile %>
-<% end %>
-
-<h1>User Posts: </h1>
-<%= render "posts/posts", posts: @user.posts %>
+<div class="m-3">
+    <div class="card shadow">
+        <div class="card-img d-flex justify-content-center">
+            <%= image_tag((@user.profile ? @user.profile.photo : "default-picture.jpg"), class:"rounded-circle mt-3", size: "400x400") %>
+        </div>
+        <div class="card-body text-center">
+            <% if current_user.friends.include?(@user) %>
+                <% friendship = current_user.friendships.find_by(friend: @user) %>
+                <%= button_to "Unfriend", friendship_path(friendship.id), class:"btn btn-danger m-3", method: :delete %>
+            <% elsif current_user.invitees.include?(@user) %>
+                <% invite = current_user.invites.find_by(invitee: @user) %>
+                <%= button_to "Cancel Invite", invitation_path(invite.id), class: "btn btn-danger m-3", method: :delete %>
+            <% elsif @user.invitees.include?(current_user) %>
+                <% invite = @user.invites.find_by(invitee: current_user) %>
+                <%= button_to "Accept Invite", friendships_path(friend_id: invite.inviter_id), class: "m-3 btn btn-success", method: :post %>
+            <% elsif current_user == @user %>
+                <p class="text-muted">This is you!</p>
+            <% else %>
+                <%= button_to "Invite to friends", invitations_path(inviter_id: current_user.id, invitee_id: @user.id), class: "btn btn-dark m-3" %>
+            <% end %>
+            <h2 class="card-title"> <%= @user.email %> </h2>
+        </div>
+        <% if @user.profile %>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <div class="text-muted small">Gender</div>
+                    <%= @user.profile.gender %>
+                </li>
+                <li class="list-group-item">
+                    <div class="text-muted small">Location</div>
+                    <%= @user.profile.location %>
+                </li>
+                <li class="list-group-item">
+                    <div class="text-muted small">Phone Number</div>
+                    <%= @user.profile.phone_number %>
+                </li>
+                <li class="list-group-item">Born <%= @user.profile.birth_date %> </li>
+            </ul>
+        <% end %>
+    </div>
+    
+    <% if @user.posts.empty? %>
+        <p class="text-center">This user has no activity.</p>
+    <% else %>
+        <%= render "posts/posts", posts: @user.posts %>
+    <% end %>
+</div>
