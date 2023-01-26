@@ -7,23 +7,19 @@ class InvitationsController < ApplicationController
     end
 
     def create
-        @invitation = current_user.invites.create(invitation_params)
+        @invitation = current_user.invites.create(inviter_id: params[:inviter_id], invitee_id: params[:invitee_id])
 
-        redirect_to new_invitation_path
+        redirect_back fallback_location: new_invitation_path
     end
 
     def destroy
         @invitation.destroy
 
-        redirect_back fallback_location: root_path
+        redirect_back fallback_location: new_invitation_path
     end
 
     private
     def set_invitation
         @invitation = Invitation.find(params[:id])
-    end
-
-    def invitation_params
-        params.require(:invitation).permit(:inviter_id, :invitee_id)
     end
 end
