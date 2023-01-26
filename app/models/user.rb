@@ -27,6 +27,10 @@ class User < ApplicationRecord
   has_many :friends, through: :friendships
 
   def remove_friend(friend)
-    current_user.friends.destroy(friend)
+    self.friends.destroy(friend)
+  end
+
+  def profile_picture_path
+    (self.profile ? self.profile.photo : "default-picture.jpg")
   end
 end
