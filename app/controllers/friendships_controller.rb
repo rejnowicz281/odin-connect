@@ -4,13 +4,13 @@ class FriendshipsController < ApplicationController
       @invitation = current_user.invites_received.find_by(inviter_id: params[:friend_id])
 
       @invitation.destroy
-      redirect_to root_path
+      redirect_back fallback_location: root_path
     end
 
     def destroy
       @friendship = Friendship.find(params[:id])
       @friendship.destroy
 
-      redirect_to root_path
+      redirect_back fallback_location: root_path
     end
 end
