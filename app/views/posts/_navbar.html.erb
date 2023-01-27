@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-between border-bottom">
     <div class="w-75">
         <div class="float-start h-100 d-flex align-items-center me-1" ><%= image_tag(post.author.profile_picture_path, class:"rounded-circle", size: "40x40") %></div>
-        <div class="fw-bold"> <%= link_to post.author.email, post.author %> </div>
+        <div class="fw-bold"> <%= link_to post.author.email, post.author, data: { turbo_frame: "_top" } %> </div>
         <div class="text-muted"> 
             <%= post.created_at %> 
             <% if post.created_at != post.updated_at %>

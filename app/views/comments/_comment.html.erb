@@ -2,7 +2,7 @@
     <div class="d-flex justify-content-between border-bottom">
         <div class="w-75">
             <div class="float-start h-100 d-flex align-items-center me-1" ><%= image_tag(comment.author.profile_picture_path, class:"rounded-circle", size: "30x30") %></div>
-            <div> <%= link_to comment.author.email, comment.author, class: "fw-bold" %> </div>
+            <div> <%= link_to comment.author.email, comment.author, class: "fw-bold", data: { turbo_frame: "_top" } %> </div>
             <div class="text-muted"> 
                 <%= comment.created_at %> 
                 <% if comment.created_at != comment.updated_at %>
