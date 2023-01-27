@@ -12,5 +12,7 @@
         <%= render "/posts/menu", post: post %>
     <% end %>
 
-    <%= render "/posts/comments", post: post %>
+    <%= turbo_frame_tag "comments" do %>
+        <%= render "/posts/comments", post: post %>
+    <% end %>
 </div>

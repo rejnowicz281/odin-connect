@@ -1,11 +1,11 @@
 class CommentsController < ApplicationController
     def create
-        @post = Post.find(params[:post_id])
-        @comment = @post.comments.build(comment_params)
-        @comment.author = current_user
+      @post = Post.find(params[:post_id])
+      @comment = @post.comments.build(comment_params)
+      @comment.author = current_user
 
-        @comment.save
-        respond_to { |format| format.turbo_stream }
+      @comment.save
+      redirect_to @post
     end
 
     def destroy
@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
       @comment = @post.comments.find(params[:id])
       @comment.destroy
 
-      respond_to { |format| format.turbo_stream }
+      redirect_to @post
     end
 
     private
