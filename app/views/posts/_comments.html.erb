@@ -2,7 +2,9 @@
     <%= render "comments/form", post: post %>
     <div class="comments" id="<%= dom_id post %>_comments">
         <% post.comments.order(created_at: :desc).each do |comment| %>
-            <%= render comment %>
+            <%= turbo_frame_tag comment do %>
+                <%= render comment %>
+            <% end %>
         <% end %>
     </div>
 </div>

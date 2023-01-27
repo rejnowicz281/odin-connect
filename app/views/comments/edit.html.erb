@@ -1,0 +1,6 @@
+<%= turbo_frame_tag @comment do %>
+    <%= form_with(model: [@post, @comment], class: "d-flex align-items-center m-2") do |form| %>
+        <%= form.text_area :body, value: @comment.body, class: "w-100 border rounded" %>
+        <button type="submit" class="btn btn-secondary m-1" >Edit</button>
+    <% end %>
+<% end %>
