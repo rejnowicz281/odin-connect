@@ -1,9 +1,11 @@
 <div class="p-3 mt-4 mb-4 border rounded shadow" id="<%= dom_id post %>">
-    <%= render "/posts/navbar", post: post %>
+    <%= turbo_frame_tag "post-content" do %>
+        <%= render "/posts/navbar", post: post %>
 
-    <div class="pb-2 pt-2"> 
-        <%= post.body %> 
-    </div>
+        <div class="pb-2 pt-2"> 
+            <%= post.body %> 
+        </div>
+    <% end %>
 
     <%= turbo_frame_tag "likes" do %>
         <%= render "/posts/likes", post: post %>
