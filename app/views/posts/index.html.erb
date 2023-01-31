@@ -1,6 +1,4 @@
 <div class="container p-2">
-    <p style="color: green"><%= notice %></p>
-
     <%= turbo_frame_tag id="new_post", src:new_post_path %>
 
     <%= render "posts", posts: @posts %>
