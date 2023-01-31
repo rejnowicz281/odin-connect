@@ -104,5 +104,12 @@
       </div>
     </nav>
     <%= yield %>
+    <div class="sticky-bottom">
+        <% flash.each do |type, msg| %>
+          <div class="p-3 mt-3 bg-light shadow-sm small rounded text-center">
+              <%= msg %>
+          </div>
+        <% end %>
+    </div>
   </body>
 </html>
