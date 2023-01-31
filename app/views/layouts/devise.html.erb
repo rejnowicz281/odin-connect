@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>OdinConnect</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+  </head>
+
+  <body class="vh-100">
+    <div class="h-100 d-flex justify-content-evenly">
+      <div class="d-flex align-items-center">
+        <%= image_tag("odin-connect.png", size: "300x300") %>
+        <span class="logo">OdinConnect</span>
+      </div>
+      <div class="d-flex flex-column justify-content-center fs-5">
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>
