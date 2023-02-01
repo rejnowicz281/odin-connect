@@ -18,7 +18,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuLink">
                         <li> <%= link_to "Edit", edit_post_comment_path(comment.post, comment), class: "dropdown-item" %> </li>
-                        <li> <%= button_to "Delete", post_comment_path(comment.post, comment), method: :delete, class: "dropdown-item" %> </li>
+                        <li> <%= button_to "Delete", post_comment_path(comment.post, comment), method: :delete, class: "dropdown-item", data: { turbo_frame: "comments"} %> </li>
                     </ul>
                 </div>
             </div>
