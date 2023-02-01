@@ -4,7 +4,7 @@ class FriendshipsController < ApplicationController
       @invitation = current_user.invites_received.find_by(inviter_id: params[:friend_id])
 
       @invitation.destroy
-      redirect_back fallback_location: root_path
+      redirect_to @invitation.inviter
     end
 
     def destroy
