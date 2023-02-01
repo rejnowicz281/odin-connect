@@ -1,9 +1,12 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  require 'open-uri'
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable
+  devise :omniauthable, omniauth_providers: %i[facebook]
 
   has_one :profile
 
@@ -33,5 +36,19 @@ class User < ApplicationRecord
 
   def profile_picture_path
     (self.profile ? self.profile.photo : "default-picture.jpg")
+  end
+
+  def self.from_omniauth(auth)
+    user = find_by(provider: auth.provider, uid: auth.uid)
+    if user.nil?
+      user = new(email: auth.info.email, password: Devise.friendly_token[0, 20], provider: auth.provider, uid: auth.uid)
+      user.skip_confirmation!
+      user.save!
+
+      user.create_profile
+      photo = URI.open(auth.info.image)
+      user.profile.photo.attach(io: photo, filename: auth.info.image)
+    end
+    user
   end
 end

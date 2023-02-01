@@ -1,3 +1,12 @@
+<%- if devise_mapping.omniauthable? %>
+  <%- resource_class.omniauth_providers.each do |provider| %>
+    <!-- <div class="m-1"><%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), method: :post %></div> -->
+    <div class="m-1">
+      <%= button_to "Log in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: {turbo:false}, class: "btn btn-primary w-100" %>
+    </div>
+  <% end %>
+<% end %>
+
 <%- if controller_name != 'sessions' %>
   <div class="m-1"><%= link_to "Log in", new_session_path(resource_name) %></div>
 <% end %>
@@ -12,10 +21,4 @@
 
 <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
   <div class="m-1"><%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) %></div>
-<% end %>
-
-<%- if devise_mapping.omniauthable? %>
-  <%- resource_class.omniauth_providers.each do |provider| %>
-    <div class="m-1"><%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), method: :post %></div>
-  <% end %>
 <% end %>
