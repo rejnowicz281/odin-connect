@@ -35,7 +35,11 @@ class User < ApplicationRecord
   end
 
   def profile_picture_path
-    (self.profile ? self.profile.photo : "default-picture.jpg")
+    if self.profile == nil || self.profile.photo_attachment == nil
+      "default-picture.jpg"
+    else
+      self.profile.photo
+    end
   end
 
   def self.from_omniauth(auth)
