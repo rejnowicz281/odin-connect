@@ -21,21 +21,7 @@
             <h2 class="card-title"> <%= @user.email %> </h2>
         </div>
         <% if @user.profile %>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    <div class="text-muted small">Gender</div>
-                    <%= @user.profile.gender %>
-                </li>
-                <li class="list-group-item">
-                    <div class="text-muted small">Location</div>
-                    <%= @user.profile.location %>
-                </li>
-                <li class="list-group-item">
-                    <div class="text-muted small">Phone Number</div>
-                    <%= @user.profile.phone_number %>
-                </li>
-                <li class="list-group-item">Born <%= @user.profile.birth_date %> </li>
-            </ul>
+            <%= render @user.profile %>
         <% end %>
     </div>
     
