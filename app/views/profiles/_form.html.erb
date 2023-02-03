@@ -1,28 +1,32 @@
-<%= form_with(model: profile) do |form| %>
-    <div class="m-1 d-flex flex-column align-items-center">
-        <%= form.label :photo, class: "form-label" %>
-        <%= form.file_field :photo, class: "form-control w-50" %>
-    </div>
+<%= turbo_frame_tag "user_profile" do %>
+    <%= form_with(model: profile) do |form| %>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <%= form.label :photo, class: "form-label text-muted small" %>
+                <%= form.file_field :photo, class: "form-control w-25" %>
+            </li>
 
-    <div class="m-1 d-flex flex-column align-items-center">
-        <%= form.label :phone_number, class: "form-label" %>
-        <%= form.number_field :phone_number, class: "form-control w-50" %>
-    </div>
+            <li class="list-group-item">
+                <%= form.label :phone_number, class: "form-label" %>
+                <%= form.number_field :phone_number, class: "form-control w-25" %>
+            </li>
 
-    <div class="m-1 d-flex flex-column align-items-center">
-        <%= form.label :gender, class: "form-label" %>
-        <%= form.select(:gender, ["Male", "Female", "Other"], {}, {class: "form-select w-50"}) %>
-    </div>
+            <li class="list-group-item">
+                <%= form.label :gender, class: "form-label" %>
+                <%= form.select(:gender, ["Male", "Female", "Other"], {}, {class: "form-select w-25"}) %>
+            </li>
 
-    <div class="m-1 d-flex flex-column align-items-center">
-        <%= form.label :birth_date, class: "form-label" %>
-        <%= form.date_field :birth_date, class: "form-control w-50" %>
-    </div>
+            <li class="list-group-item">
+                <%= form.label :birth_date, class: "form-label" %>
+                <%= form.date_field :birth_date, class: "form-control w-25" %>
+            </li>
 
-    <div class="m-1 d-flex flex-column align-items-center">
-        <%= form.label :location, class: "form-label" %>
-        <%= form.text_field :location, class: "form-control w-50" %>
-    </div>
+            <li class="list-group-item">
+                <%= form.label :location, class: "form-label" %>
+                <%= form.text_field :location, class: "form-control w-25" %>
+            </li>
 
-    <div class="d-flex justify-content-center"><%= form.submit class: "btn btn-secondary w-50 mt-2" %></div>
+            <li class="list-group-item"><%= form.submit class: "btn btn-secondary mt-2", data: {turbo_frame: "_top"} %></div>
+        </ul>
+    <% end %>
 <% end %>

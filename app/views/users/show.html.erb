@@ -20,9 +20,21 @@
             <% end %>
             <h2 class="card-title"> <%= @user.email %> </h2>
         </div>
-        <% if @user.profile %>
-            <%= render @user.profile %>
-        <% end %>
+
+        <div class="m-2">
+            <div class="text-center">
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseProfile" aria-expanded="false" aria-controls="collapseProfile">
+                    Toggle Profile Info
+                </button>
+            </div>
+            <div class="collapse" id="collapseProfile"">
+                <% if @user.profile %>
+                    <%= turbo_frame_tag "user_profile", src: @user.profile %>
+                <% else %>
+                    <%= turbo_frame_tag "user_profile", src: new_profile_path %>
+                <% end %>
+            </div>
+        </div>
     </div>
     
     <% if @user.posts.empty? %>

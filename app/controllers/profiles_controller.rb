@@ -1,4 +1,8 @@
 class ProfilesController < ApplicationController
+    def show
+        @profile = Profile.find(params[:id])
+    end
+
     def new
         @profile = current_user.build_profile
     end
@@ -8,10 +12,32 @@ class ProfilesController < ApplicationController
 
         if @profile.save
             @profile.photo.attach(params[:profile][:photo])
-            redirect_to current_user
+            redirect_to @profile.user
         else
             render :new, status: :unprocessable_entity
         end
+    end
+
+    def edit
+        @profile = Profile.find(params[:id])
+    end
+
+    def update
+        @profile = Profile.find(params[:id])
+
+        if @profile.update(profile_params)
+            @profile.photo.attach(params[:profile][:photo])
+            redirect_to @profile.user
+        else
+            render :edit, status: :unprocessable_entity
+        end
+    end
+
+    def destroy
+        @profile = Profile.find(params[:id])
+        @user = @profile.user
+        @profile.destroy
+        redirect_to @user
     end
 
     private
