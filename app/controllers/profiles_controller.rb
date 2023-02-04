@@ -26,7 +26,7 @@ class ProfilesController < ApplicationController
         @profile = Profile.find(params[:id])
 
         if @profile.update(profile_params)
-            @profile.photo.attach(params[:profile][:photo])
+            @profile.photo.attach(params[:profile][:photo]) unless params[:profile][:photo].nil?
             redirect_to @profile.user
         else
             render :edit, status: :unprocessable_entity
