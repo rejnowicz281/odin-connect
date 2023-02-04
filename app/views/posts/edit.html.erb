@@ -1,6 +1,8 @@
 <%= turbo_frame_tag "post-content" do %>
-  <%= form_with(model: @post, class:"d-flex flex-column align-items-center") do |form| %>
+  <%= form_with(model: @post) do |form| %>
     <%= form.text_area :body, class: "w-100 border rounded" %>
+    <i class="text-muted">Change or add a photo</i><span class="m-1 bi-arrow-right text-muted"></span>
+    <%= form.file_field :photo, class: "m-2 w-25" %>
     <button type="submit" class="btn btn-dark m-1 w-100" >Edit</button>
   <% end %>
 <% end %>

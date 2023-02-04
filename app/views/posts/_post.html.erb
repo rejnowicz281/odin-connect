@@ -2,9 +2,10 @@
     <%= turbo_frame_tag "post-content" do %>
         <%= render "/posts/navbar", post: post %>
 
-        <div class="pb-2 pt-2"> 
-            <%= post.body %> 
-        </div>
+        <div class="pb-2 pt-2"><%= post.body %></div>
+        <% unless post.photo_attachment.nil? %>
+            <div class="shadow-sm d-flex justify-content-center"><%= image_tag(post.photo, id: "post-photo") %></div>
+        <% end %>
     <% end %>
 
     <%= turbo_frame_tag "likes" do %>

@@ -1,4 +1,6 @@
-<%= form_with(model: post, class:"d-flex flex-column align-items-center") do |form| %>
+<%= form_with(model: post) do |form| %>
   <%= form.text_area :body, placeholder: "What's on your mind?", class: "w-100 border rounded" %>
+  <i class="text-muted">Add a photo to your post</i><span class="m-1 bi-arrow-right text-muted"></span>
+  <%= form.file_field :photo, class: "m-2 w-25" %>
   <button type="submit" class="btn btn-dark m-1 w-100" >Publish</button>
 <% end %>

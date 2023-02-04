@@ -19,6 +19,7 @@ class PostsController < ApplicationController
 
         respond_to do |format|
             if @post.save
+                @post.photo.attach(params[:post][:photo])
                 format.turbo_stream
             else
                 format.html { render :new, status: :unprocessable_entity }
@@ -31,6 +32,7 @@ class PostsController < ApplicationController
 
     def update
         if @post.update(post_params)
+            @post.photo.attach(params[:post][:photo]) unless params[:post][:photo].nil?
             redirect_to @post
         else
             render :edit, status: :unprocessable_entity
