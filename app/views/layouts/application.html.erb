@@ -84,12 +84,6 @@
                 <% end %>
               </ul>
             </li>
-
-            <% unless current_user.profile %>
-              <li class="nav-item">
-                <%= link_to "Create a profile", new_profile_path, class: "nav-link" %>
-              </li>
-            <% end %>
           </ul>
 
           <ul class="navbar-nav ml-auto">
