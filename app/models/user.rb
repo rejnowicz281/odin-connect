@@ -4,9 +4,7 @@ class User < ApplicationRecord
   require 'open-uri'
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,
-         :confirmable
-  devise :omniauthable, omniauth_providers: %i[facebook]
+         :rememberable, :validatable
 
   has_one :profile
 
